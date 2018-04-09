@@ -1,0 +1,17 @@
+## Interface: 70300
+## Title: Guild Banker
+## Version: 0.0.9
+## Notes: A guild bank management system.
+## Dependencies:
+## SavedVariablesPerCharacter: GB_Config, GB_Balance, GB_ItemLargess, GB_AuditHistory, GB_OfficerNotes, GB_AuditData
+
+gb_roster.xml
+gb_hitlist.xml
+gb.xml
+gb_config.xml
+gb_icons.xml
+gb_largess_view.xml
+gb_largess_details.xml
+gb_item_largess.xml
+gb_audit_history.xml
+ChatThrottleLib.lua

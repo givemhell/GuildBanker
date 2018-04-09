@@ -1,0 +1,233 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Frame name="GB_ListFrame" movable="true" enableMouse="true" clampedToScreen="true" hidden="true">    
+    <Size>
+      <AbsDimension x="380" y="510" />
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER" relativeTo="UIParent">
+        <Offset>
+          <AbsDimension x="0" y="0" />
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Backdrop>
+      <BackgroundInsets>
+        <AbsInset left="11" right="12" top="12" bottom="11" />
+      </BackgroundInsets>
+      <TileSize>
+        <AbsValue val="32" />
+      </TileSize>
+      <EdgeSize>
+        <AbsValue val="32" />
+      </EdgeSize>
+    </Backdrop>
+    <Frames> 
+        <Frame name="GB_GuildBalanceFrame" inherits="SmallMoneyFrameTemplate" toplevel="true" frameStrata="DIALOG">
+			<Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-140" y="88"/></Offset></Anchor></Anchors>            
+			<Scripts>
+				<OnLoad>
+                    SmallMoneyFrame_OnLoad(self);
+                    MoneyFrame_SetType(self, "AUCTION");
+                </OnLoad>
+                <OnUpdate>
+                    GB_GuiUpdate();
+                </OnUpdate>
+            </Scripts>			
+            <Layers><Layer>
+                <FontString name="GBH_NegLargess" text="-" inherits="GameFontNormal" hidden="true" justifyH="LEFT">
+                    <Anchors><Anchor point="LEFT"><Offset><AbsDimension x="-5" y="0"/></Offset></Anchor></Anchors>
+                    <Size><AbsDimension x="30" y="16" /></Size>	
+                </FontString> 
+            </Layer></Layers>
+        </Frame>
+        <Frame name="$parentTexture1" frameStrata="DIALOG">               
+            <Size><AbsDimension x="225" y="40" /></Size>
+            <Anchors>
+               <Anchor point="BOTTOMRIGHT">
+                  <Offset>
+                     <AbsDimension x="-145" y="67" />
+                  </Offset>
+               </Anchor>
+            </Anchors>
+            <Layers>
+               <Layer>
+                  <Texture name="$parentTexture" setAllPoints="true" file="interface\moneyframe\ui-moneyframe-border.png">
+                     <TexCoords left="0" right="1" top="0" bottom="1" />
+                  </Texture>
+               </Layer>
+            </Layers>
+        </Frame> 
+      <Frame name="$parentLabel1">   
+        <Size>
+          <AbsDimension x="159" y="15" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="112" y="-12" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <FontString name="$parentLabel" setAllPoints="true" font="Fonts\FRIZQT__.TTF" text="Guild Banker">
+              <FontHeight>
+                <AbsValue val="12" />
+              </FontHeight>
+              <Color r="1" g="0.8196079" b="0" />
+              <Shadow>
+                <Color r="0" g="0" b="0" />
+                <Offset>
+                  <AbsDimension x="1" y="-1" />
+                </Offset>
+              </Shadow>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Button name="$parentMinimizeButton" toplevel="true" frameStrata="DIALOG">       
+        <Size>
+          <AbsDimension x="32" y="32" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="317" y="-6" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>GB_ToggleHitList();</OnClick>
+        </Scripts>
+        <NormalTexture file="interface\buttons\ui-panel-minimizebutton-up" />
+        <PushedTexture file="interface\buttons\ui-panel-minimizebutton-down">
+          <Size>
+            <AbsDimension x="32" y="32" />
+          </Size>
+        </PushedTexture>
+        <DisabledTexture file="Interface\Buttons\UI-Panel-Button-Disabled">
+          <TexCoords left="0" right="0.625" top="0" bottom="0.6875" />
+        </DisabledTexture>
+        <ButtonText name="$parentText">
+          <Anchors>
+            <Anchor point="CENTER">
+              <Offset>
+                <AbsDimension x="0" y="1" />
+              </Offset>
+            </Anchor>
+          </Anchors>
+          <FontHeight>
+            <AbsValue val="10" />
+          </FontHeight>
+        </ButtonText>
+        <NormalFont style="GameFontNormal" />
+        <HighlightFont style="GameFontHighlight" />
+        <DisabledFont style="GameFontDisable" />
+        <PushedTextOffset x="0" y="0" />
+      </Button>
+      <Frame name="$parentSkullnXBones" topLevel="true" frameStrata="BACKGROUND">       
+        <Size>
+          <AbsDimension x="64" y="64" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="0" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <Texture name="$parentTexture" setAllPoints="true" file="interface\lootframe\lootpanel-icon">
+              <TexCoords left="0" right="1" top="0" bottom="1" />
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame name="$parentTexture2">        
+        <Size>
+          <AbsDimension x="128" y="256" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="251" y="3" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <Texture name="$parentTexture" setAllPoints="true" file="interface\classtrainerframe\ui-classtrainer-topright">
+              <TexCoords left="0" right="1" top="0" bottom="1" />
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame name="$parentTexture3">        
+        <Size>
+          <AbsDimension x="256" y="256" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="-5" y="-253" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <Texture name="$parentTexture" setAllPoints="true" file="interface\addons\GuildBanker\images\gbhframe-botleft">
+              <TexCoords left="0" right="1" top="0" bottom="1" />
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame name="$parentTexture4">       
+        <Size>
+          <AbsDimension x="128" y="256" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="251" y="-253" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <Texture name="$parentTexture" setAllPoints="true" file="interface\friendsframe\guildframe-botright">
+              <TexCoords left="0" right="1" top="0" bottom="1" />
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame name="$parentTexture1">       
+        <Size>
+          <AbsDimension x="256" y="256" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="-5" y="3" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <Texture name="$parentTexture" setAllPoints="true" file="interface\classtrainerframe\ui-classtrainer-topleft">
+              <TexCoords left="0" right="1" top="0" bottom="1" />
+            </Texture>
+          </Layer>
+        </Layers>     
+      </Frame>      
+    </Frames>
+    <Scripts>
+      <OnLoad></OnLoad>
+      <OnEvent></OnEvent>
+      <OnDragStart>self:StartMoving();
+      </OnDragStart>
+      <OnDragStop>self:StopMovingOrSizing();
+      </OnDragStop>
+    </Scripts>
+  </Frame>
+</Ui>

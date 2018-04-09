@@ -1,0 +1,114 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">    
+    <Button name="LargessReportButton" parent="GB_ListFrame">
+        <Size x="32" y="32" />
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentIcon" file="interface\icons\inv_misc_coin_02" setAllPoint="true" />
+            </Layer>
+        </Layers>
+        <Scripts>            
+            <OnEnter>                
+                GB_EnterLargessReportButton(self)
+            </OnEnter>
+            <OnLeave>
+                GB_LeaveLargessReportButton()
+            </OnLeave>
+            <OnClick>
+                GB_LargessReportButtonOnClick()
+            </OnClick>
+        </Scripts>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="GB_ListFrame" >
+                <Offset>
+                    <AbsDimension x="112" y="-34" />
+                </Offset>
+            </Anchor>
+        </Anchors>        
+    </Button>
+	
+    <Button name="ItemLargessButton" parent="GB_ListFrame">
+        <Size x="32" y="32" />
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentIcon" file="interface\icons\inv_ingot_03" setAllPoint="true" />
+            </Layer>
+        </Layers>
+        <Scripts>            
+            <OnEnter>
+                GB_EnterItemButton(self)
+            </OnEnter>
+            <OnLeave>
+                GB_LeaveItemButton()
+            </OnLeave>
+            <OnClick>
+                GB_DisplayItemLargess()
+            </OnClick>
+        </Scripts>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="GB_ListFrame" >
+                <Offset>
+                    <AbsDimension x="144" y="-34" />
+                </Offset>
+            </Anchor>
+        </Anchors>        
+    </Button>    
+   
+    <Button name="AuditButton" parent="GB_ListFrame">
+        <Size x="32" y="32" />
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentIcon" file="interface\icons\inv_misc_book_07" setAllPoint="true" />
+            </Layer>
+        </Layers>
+        <Scripts>            
+            <OnEnter>
+                GB_EnterAuditButton(self)
+            </OnEnter>
+            <OnLeave>
+                GB_LeaveAuditButton()
+            </OnLeave>
+            <OnClick>
+                GB_DisplayAuditHistory()
+                --GB_AuditPrep();
+            </OnClick>
+        </Scripts>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="GB_ListFrame" >
+                <Offset>
+                    <AbsDimension x="240" y="-34" />
+                </Offset>
+            </Anchor>
+        </Anchors>        
+    </Button>
+	
+    <Button name="ConfigButton" parent="GB_ListFrame">
+        <Size x="32" y="32" />
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parentIcon" file="interface\icons\trade_engineering" setAllPoint="true" />
+            </Layer>
+        </Layers>
+        <Scripts>            
+            <OnEnter>
+                GB_EnterConfigButton(self)
+            </OnEnter>
+            <OnLeave>
+                GB_LeaveConfigButton()
+            </OnLeave>
+            <OnClick>
+                GB_ConfigScrollFrame:Show()
+                GB_LargessViewFrame:Hide() 
+                GB_ItemLargessFrame:Hide()                
+                GB_AuditHistoryFrame:Hide()
+                SetPortraitToTexture(GB_ListFrameSkullnXBonesTexture,"interface\\icons\\trade_engineering")
+            </OnClick>
+        </Scripts>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="GB_ListFrame" >
+                <Offset>
+                    <AbsDimension x="272" y="-34" />
+                </Offset>
+            </Anchor>
+        </Anchors>        
+    </Button>
+</Ui>
