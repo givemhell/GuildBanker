@@ -1,6 +1,6 @@
-## Interface: 70300
+## Interface: 80200
 ## Title: Guild Banker
-## Version: 0.0.9
+## Version: 0.0.10
 ## Notes: A guild bank management system.
 ## Dependencies:
 ## SavedVariablesPerCharacter: GB_Config, GB_Balance, GB_ItemLargess, GB_AuditHistory, GB_OfficerNotes, GB_AuditData
