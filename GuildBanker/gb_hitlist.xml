@@ -23,7 +23,13 @@
     </Backdrop>
     <Frames> 
         <Frame name="GB_GuildBalanceFrame" inherits="SmallMoneyFrameTemplate" toplevel="true" frameStrata="DIALOG">
-			<Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-140" y="88"/></Offset></Anchor></Anchors>            
+			<Anchors>
+                <Anchor point="BOTTOMRIGHT">
+                    <Offset>
+                        <AbsDimension x="-140" y="88"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>            
 			<Scripts>
 				<OnLoad>
                     SmallMoneyFrame_OnLoad(self);

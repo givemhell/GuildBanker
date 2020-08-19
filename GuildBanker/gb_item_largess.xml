@@ -83,7 +83,13 @@
             </Anchors>        
         </Button>
         <Frame name="GB_ItemLargessMoneyFrame" inherits="MoneyInputFrameTemplate" >      
-            <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-35" y="112"/></Offset></Anchor></Anchors>		
+            <Anchors>
+                <Anchor point="BOTTOMRIGHT">
+                    <Offset>
+                        <AbsDimension x="-35" y="112"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>		
         </Frame>        
          <ScrollFrame name="GB_ItemLargessScrollFrame" inherits="FauxScrollFrameTemplate">
             <Size><AbsDimension x="295" y="231"/></Size>
@@ -175,8 +181,16 @@
                 </Anchors>        
             </Button>
 			<Frame>
-				<Size><AbsDimension x="250" y="16" /></Size>
-				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="28" y="-2"/></Offset></Anchor></Anchors>
+				<Size>
+                    <AbsDimension x="250" y="16" />
+                </Size>
+				<Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="28" y="-2"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
 						<FontString name="$parent_ItemName" inherits="GameFontNormalSmall" justifyh="LEFT" >
@@ -187,7 +201,13 @@
 				</Layers>
 				<Frames>
 					<Frame name="$parent_ItemLargess" inherits="SmallMoneyFrameTemplate" >						
-						<Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="30" y="-2"/></Offset></Anchor></Anchors>
+						<Anchors>
+                            <Anchor point="BOTTOMRIGHT">
+                                <Offset>
+                                    <AbsDimension x="30" y="-2"/>
+                                </Offset>
+                            </Anchor>
+                        </Anchors>
 						<Scripts>
 							<OnLoad>
 								SmallMoneyFrame_OnLoad(self);

@@ -1,4 +1,4 @@
-## Interface: 80200
+## Interface: 70300
 ## Title: Guild Banker
 ## Version: 0.0.10
 ## Notes: A guild bank management system.

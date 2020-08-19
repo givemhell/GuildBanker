@@ -11,12 +11,56 @@
                 <!-- GB_ItemLargessListUpdate() -->
             </OnUpdate>
   		</Scripts>          
-        <Frames> 
-            <Button name="GBH_ColumnHeaderAuditItem" text="Item" inherits="GBColumnButtonTemplate">     
+        <Frames>
+            <Button name="GB_ColumnHeaderAuditTime" text="Time" inherits="GBColumnButtonTemplate">     
                 <Size>
-                    <AbsDimension x="150" y="24"/>
+                    <AbsDimension x="24" y="24"/>
                 </Size>
-                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-70"/></Offset></Anchor></Anchors>     
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="20" y="-70"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>     
+                <Scripts>
+                    <OnClick>
+                        GB_AUDIT_TIME_SORT = not GB_AUDIT_TIME_SORT;
+                        table.sort(GB_AuditHistory,GB_SortByAuditTime);
+                        GB_AuditHistoryUpdate();
+                    </OnClick>
+                </Scripts>
+            </Button>              
+            <Button name="GB_ColumnHeaderAuditType" text="Type" inherits="GBColumnButtonTemplate">     
+                <Size>
+                    <AbsDimension x="24" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="45" y="-70"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>     
+                <Scripts>
+                    <OnClick>
+                        GB_AUDIT_TYPE_SORT = not GB_AUDIT_TYPE_SORT;
+                        table.sort(GB_AuditHistory,GB_SortByAuditType);
+                        GB_AuditHistoryUpdate();
+                    </OnClick>
+                </Scripts>
+            </Button>              
+            <Button name="GB_ColumnHeaderAuditItem" text="Item" inherits="GBColumnButtonTemplate">     
+                <Size>
+                    <AbsDimension x="24" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="70" y="-70"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>     
                 <Scripts>
                     <OnClick>
                         GB_AUDIT_ITEM_SORT = not GB_AUDIT_ITEM_SORT;
@@ -24,13 +68,37 @@
                         GB_AuditHistoryUpdate();
                     </OnClick>
                 </Scripts>
-            </Button>        
-         
-            <Button name="GBH_ColumnHeaderAuditAmount" text="Amount" inherits="GBColumnButtonTemplate">    
+            </Button>   
+            <Button name="GB_ColumnHeaderAuditName" text="Name" inherits="GBColumnButtonTemplate">     
+                <Size>
+                    <AbsDimension x="150" y="24"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="95" y="-70"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>     
+                <Scripts>
+                    <OnClick>
+                        GB_AUDIT_NAME_SORT = not GB_AUDIT_NAME_SORT;
+                        table.sort(GB_AuditHistory,GB_SortByAuditName);
+                        GB_AuditHistoryUpdate();
+                    </OnClick>
+                </Scripts>
+            </Button>             
+            <Button name="GB_ColumnHeaderAuditAmount" text="Amount" inherits="GBColumnButtonTemplate">    
                 <Size>
                     <AbsDimension x="161" y="24"/>
                 </Size>
-                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="169" y="-70"/></Offset></Anchor></Anchors> 
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="245" y="-70"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors> 
                 <Scripts>
                     <OnClick>
                         GB_AUDIT_AMOUNT_SORT = not GB_AUDIT_AMOUNT_SORT;
@@ -38,87 +106,101 @@
                         GB_AuditHistoryUpdate();
                     </OnClick>
                 </Scripts>
-            </Button>
-     
-        <Frame name="GB_AuditHistoryMoneyFrame" inherits="MoneyInputFrameTemplate" >      
-            <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-35" y="112"/></Offset></Anchor></Anchors>		
-        </Frame>
-     
-         <ScrollFrame name="GB_AuditHistoryScrollFrame" inherits="FauxScrollFrameTemplate">
-            <Size><AbsDimension x="295" y="231"/></Size>
-               <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-90"/></Offset></Anchor></Anchors>
-                  <Scripts>                    
-                     <OnVerticalScroll>
+            </Button>     
+            <Frame name="GB_AuditHistoryMoneyFrame" inherits="MoneyInputFrameTemplate" >      
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT">
+                        <Offset>
+                            <AbsDimension x="-35" y="112"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>		
+            </Frame>     
+            <ScrollFrame name="GB_AuditHistoryScrollFrame" inherits="FauxScrollFrameTemplate">
+                <Size>
+                    <AbsDimension x="295" y="231"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="10" y="-90"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>                    
+                    <OnVerticalScroll>
                         FauxScrollFrame_OnVerticalScroll(self, offset, 28, GB_AuditHistoryFrameUpdate); 
-                     </OnVerticalScroll>                        
-                  </Scripts>
-         </ScrollFrame> 
-         <Button name="GBH_DoAuditButton" text="Audit" inherits="UIPanelButtonTemplate">
-            <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-100" y="150"/></Offset></Anchor></Anchors>
-            <Size x="50" y="20" />
-            <Scripts>					
-               <OnClick>                    
-                    GB_AuditPrep();
-               </OnClick>
-				</Scripts>
-         </Button>
-         <Button name="GB_ModifyAuditAmount" text="Modify" inherits="UIPanelButtonTemplate">
-            <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-45" y="150"/></Offset></Anchor></Anchors>
-            <Size x="50" y="20" />
-            <Scripts>					
-               <OnClick>
-                  GBH_ModifyAuditHistory()
-               </OnClick>
-				</Scripts>
-         </Button>
-         <Button name="GBH_DelAuditHistoryTrans" text="Delete" inherits="UIPanelButtonTemplate">
-            <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-45" y="130"/></Offset></Anchor></Anchors>
-            <Size x="50" y="20" />
-            <Scripts>					
-               <OnClick>
-                  GBH_DelFromAuditHistory()
-               </OnClick>
-				</Scripts>
-         </Button>
-         <Button name="GB_ColumnHeaderItemAuditHistoryItem" text="Item" inherits="GuildFrameColumnHeaderTemplate">              
-            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-70"/></Offset></Anchor></Anchors>      
-            <Scripts>
-					<OnLoad>
-						<!--WhoFrameColumn_SetWidth(self, 150);						-->
-					</OnLoad>
-               <OnClick>
-                  
-               </OnClick>
-				</Scripts>
-         </Button>        
-         
-         <Button name="GB_ColumnHeaderItemAuditHistoryAmount" text="Amount" inherits="GuildFrameColumnHeaderTemplate">              
-            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="169" y="-70"/></Offset></Anchor></Anchors>      
-            <Scripts>
-					<OnLoad>
-						<!--WhoFrameColumn_SetWidth(self, 161);						-->
-					</OnLoad>
-               <OnClick>
-                  
-               </OnClick>
-            </Scripts>
-         </Button>  
-      </Frames>
-   </Frame>     
-   <Button name="GB_AuditHistoryEntryTemplate" virtual="true" hidden="true">
-		<Size><AbsDimension x="300" y="28" /></Size>	
-      <Scripts>
-         <OnLoad>
-            self.index = 0;
-         </OnLoad>
-         <OnClick>
-            GB_AuditHistoryEntryOnClick(self)
-         </OnClick>
-      </Scripts>
+                    </OnVerticalScroll>                        
+                </Scripts>
+            </ScrollFrame> 
+            <Button name="GBH_DoAuditButton" text="Audit" inherits="UIPanelButtonTemplate">
+                <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-100" y="150"/></Offset></Anchor></Anchors>
+                <Size x="50" y="20" />
+                <Scripts>					
+                    <OnClick>                    
+                        GB_AuditPrep();
+                    </OnClick>
+                    </Scripts>
+            </Button>
+            <Button name="GB_ModifyAuditAmount" text="Modify" inherits="UIPanelButtonTemplate">
+                <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-45" y="150"/></Offset></Anchor></Anchors>
+                <Size x="50" y="20" />
+                <Scripts>					
+                   <OnClick>
+                      GBH_ModifyAuditHistory()
+                   </OnClick>
+                    </Scripts>
+            </Button>
+            <Button name="GBH_DelAuditHistoryTrans" text="Delete" inherits="UIPanelButtonTemplate">
+                <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-45" y="130"/></Offset></Anchor></Anchors>
+                <Size x="50" y="20" />
+                <Scripts>					
+                   <OnClick>
+                      GBH_DelFromAuditHistory()
+                   </OnClick>
+                   </Scripts>
+            </Button>
+            <Button name="GB_ColumnHeaderItemAuditHistoryItem" text="Item" inherits="GuildFrameColumnHeaderTemplate">              
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-70"/></Offset></Anchor></Anchors>      
+                <Scripts>
+                        <OnLoad>
+                            <!--WhoFrameColumn_SetWidth(self, 150);						-->
+                        </OnLoad>
+                    <OnClick>
+                      
+                    </OnClick>
+                    </Scripts>
+            </Button>         
+            <Button name="GB_ColumnHeaderItemAuditHistoryAmount" text="Amount" inherits="GuildFrameColumnHeaderTemplate">              
+                <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="169" y="-70"/></Offset></Anchor></Anchors>      
+                <Scripts>
+                    <OnLoad>
+                         <!--WhoFrameColumn_SetWidth(self, 161);						-->
+                    </OnLoad>
+                    <OnClick>
+                      
+                   </OnClick>
+                </Scripts>
+            </Button>  
+        </Frames>
+    </Frame> 
+    
+    <Button name="GB_AuditHistoryEntryTemplate" virtual="true" hidden="true">
+		<Size>
+            <AbsDimension x="300" y="28" />
+        </Size>	
+        <Scripts>
+            <OnLoad>
+                self.index = 0;
+            </OnLoad>
+            <OnClick>
+                GB_AuditHistoryEntryOnClick(self)
+            </OnClick>            
+        </Scripts>
 		<Frames>
             <Frame>
 				<Size>
-                    <AbsDimension x="20" y="16" />
+                    <AbsDimension x="24" y="24" />
                 </Size>
 				<Anchors>
                     <Anchor point="TOPLEFT">
@@ -129,23 +211,74 @@
                 </Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
-						<FontString name="$parent_Type" inherits="GameFontNormal" justifyh="LEFT" >
+						<FontString name="$parent_Time" inherits="GameFontNormalSmall" justifyh="LEFT" >
                             <Size>
-                                <AbsDimension x="15" y="10" />
+                                <AbsDimension x="30" y="24" />
                             </Size>
+                            <Color r="1" g="1" b="1"/>
 							<Anchors>
                                 <Anchor point="LEFT">
                                     <Offset>
-                                        <AbsDimension y="-4" x="0"/>
+                                        <AbsDimension x="0" y="0"/>
                                     </Offset>
                                 </Anchor>
                             </Anchors>
 						</FontString>
 					</Layer>
 				</Layers>				
-			</Frame>   		
+			</Frame>
+            <Frame>
+				<Size>
+                    <AbsDimension x="24" y="24" />
+                </Size>
+				<Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="40" y="-2"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString name="$parent_TransType" inherits="QuestFont_Shadow_Huge" justifyh="LEFT" >
+                            <Size>
+                                <AbsDimension x="16" y="24" />
+                            </Size>
+							<Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="0" y="0"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+						</FontString>
+					</Layer>
+				</Layers>				
+			</Frame>
+        <!--    <Button name="$parent_TransType" >
+                <Size x="24" y="24" />
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <Texture name="$parent_Texture" file="interface\icons\spell_chargenegative" setAllPoint="true" />
+                    </Layer>                    
+                </Layers>                
+                <Anchors>
+                    <Anchor point="LEFT" >
+                        <Offset>
+                            <AbsDimension x="90" y="0" />
+                        </Offset>
+                    </Anchor>
+                </Anchors>        
+            </Button>    -->                 
             <Button name="$parent_ItemIcon" >
                 <Size x="24" y="24" />
+                <Anchors>
+                    <Anchor point="LEFT" >
+                        <Offset>
+                            <AbsDimension x="55" y="0" />
+                        </Offset>
+                    </Anchor>
+                </Anchors>       
                 <Layers>
                     <Layer level="OVERLAY">
                         <Texture name="$parent_Texture" file="interface\icons\inv_misc_bone_humanskull_02" setAllPoint="true" />
@@ -176,23 +309,16 @@
                     <OnClick>
                         GB_ItemAuditHistoryOnClick()
                     </OnClick>
-                </Scripts>
-                <Anchors>
-                    <Anchor point="LEFT" >
-                        <Offset>
-                            <AbsDimension x="25" y="0" />
-                        </Offset>
-                    </Anchor>
-                </Anchors>        
+                </Scripts>                 
             </Button>            
 			<Frame>
 				<Size>
-                    <AbsDimension x="250" y="16" />
+                    <AbsDimension x="125" y="16" />
                 </Size>
 				<Anchors>
                     <Anchor point="TOPLEFT">
                         <Offset>
-                            <AbsDimension x="58" y="-2"/>
+                            <AbsDimension x="60" y="-2"/>
                         </Offset>
                     </Anchor>
                 </Anchors>
@@ -200,7 +326,7 @@
 					<Layer level="BACKGROUND">
 						<FontString name="$parent_PlayerName" inherits="GameFontNormalSmall" justifyh="LEFT" >
                             <Size>
-                                <AbsDimension x="105" y="10" />
+                                <AbsDimension x="125" y="10" />
                             </Size>
 							<Anchors>
                                 <Anchor point="LEFT">
@@ -212,24 +338,22 @@
 						</FontString>
 					</Layer>
 				</Layers>
-				<Frames>
-					<Frame name="$parent_ItemLargess" inherits="SmallMoneyFrameTemplate" >						
-						<Anchors>
-                            <Anchor point="BOTTOMRIGHT">
-                                <Offset>
-                                    <AbsDimension x="0" y="-2"/>
-                                </Offset>
-                            </Anchor>
-                        </Anchors>
-						<Scripts>
-							<OnLoad>
-								SmallMoneyFrame_OnLoad(self);
-								MoneyFrame_SetType(self, "AUCTION");
-							</OnLoad>
-						</Scripts>                        
-					</Frame>                     
-				</Frames>
-			</Frame>   		
+            </Frame>				
+			<Frame name="$parent_ItemLargess" inherits="SmallMoneyFrameTemplate" >						
+				<Anchors>
+                    <Anchor point="BOTTOMRIGHT">
+                        <Offset>
+                            <AbsDimension x="10" y="8"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        SmallMoneyFrame_OnLoad(self);
+                        MoneyFrame_SetType(self, "AUCTION");
+                    </OnLoad>
+                </Scripts>                        
+			</Frame>
 		</Frames>		
 		<HighlightTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar" alphaMode="ADD">
 			<TexCoords left="0.035" right="0.04" top="0.2" bottom="0.25"/>

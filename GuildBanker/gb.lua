@@ -138,7 +138,7 @@ function GB_OnEvent(self, event, ...)
         GB_GuildMates = {}      
         for i = 1,gnum do
             name,rank,rankIndex,level,class,zone,note,officernote,online,status,classFileName = GetGuildRosterInfo(i) 
-            table.insert(GB_GuildMates,{name=name,note=officernote,pnote=note})
+            table.insert(GB_GuildMates,{name=name,class=class,note=officernote,pnote=note})
         end  
        
         GB_GuildInfoText = GetGuildInfoText()   
@@ -188,8 +188,7 @@ function GB_GetFullName(name)
    else
       local realm = GetRealmName()
       return name.."-"..realm
-   end   
-   
+   end     
 end
 
 function GB_GetFullNameNoSpaces(name)
@@ -200,6 +199,22 @@ function GB_GetFullNameNoSpaces(name)
     name = GB_GetFullName(name)
     name, num = gsub(name, " ", "")
     return name
+end
+
+function GB_GetNameNoRealm(name)
+   local n, r
+   
+   if name == nil then
+        return
+   end
+   
+   if name == "player" then
+		name = UnitName("player")
+   end
+	
+   n, r = string.split("-", name)
+   
+   return n
 end
 
 function GB_ParseGuildInfoText()

@@ -74,7 +74,8 @@ end
 function GB_AuditHistoryUpdate()
     local i,dataOffset,offset,n,m,r,g,b
     local moneyFrame,textString,entryFrame
-    local transTypeString, itemIcon, itemIconTexture, sourceIcon, sourceIconTexture, playerName, countText
+    local timeString, transTypeString, typeIconTexture, itemIcon, itemIconTexture, sourceIcon, sourceIconTexture, playerName, countText
+    local class, color
     
     n = #GB_AuditHistory    
     FauxScrollFrame_Update(GB_AuditHistoryScrollFrame,n,GB_NUM_AUDIT_HISTORY_ENTRIES,28,nil,nil,nil,nil,nil,nil,true);
@@ -82,7 +83,9 @@ function GB_AuditHistoryUpdate()
        
        for i = 0,GB_NUM_AUDIT_HISTORY_ENTRIES-1 do
           dataOffset = offset + i + 1 
-          transTypeString = _G["GB_AuditHistoryEntry"..i.."_Type"]
+          timeString = _G["GB_AuditHistoryEntry"..i.."_Time"]
+          transTypeString = _G["GB_AuditHistoryEntry"..i.."_TransType"]
+          --typeIconTexture = _G["GB_AuditHistoryEntry"..i.."_TransType_Texture"]
           itemIcon = _G["GB_AuditHistoryEntry"..i.."_ItemIcon"]
           itemIconTexture = _G["GB_AuditHistoryEntry"..i.."_ItemIcon_Texture"]
           sourceIcon = _G["GB_AuditHistoryEntry"..i.."_SourceIcon"]
@@ -94,16 +97,18 @@ function GB_AuditHistoryUpdate()
           
           if dataOffset <= n then 
             --set transaction type icon
-            if (GB_AuditHistory[dataOffset].typ == "withdraw" or GB_AuditHistory[dataOffset].typ == "repair") then
-                --set string to minus sign
+            if (GB_AuditHistory[dataOffset].typ == "withdraw" or GB_AuditHistory[dataOffset].typ == "repair") then                
+                --set transaction type icon
+                --typeIconTexture:SetTexture("interface\\icons\\spell_chargenegative")
+                --playerName:SetTextColor(1,0,0)
                 transTypeString:SetText("-")
                 transTypeString:SetTextColor(1,0,0)
-                playerName:SetTextColor(1,0,0)
             else
-                --set string to plus sign
+                --set transaction type icon
+                --typeIconTexture:SetTexture("interface\\icons\\spell_chargepositive")
+                --playerName:SetTextColor(1,0.81,0)
                 transTypeString:SetText("+")
                 transTypeString:SetTextColor(1,0.81,0)
-                playerName:SetTextColor(1,0.81,0)
             end
             
             -- set item icon texture
@@ -124,9 +129,17 @@ function GB_AuditHistoryUpdate()
                 end
                 countText:SetText("")
             end   
-                        
+            
+            --set transaction time
+            timeString:SetText(SecondsToTime(time()-GB_AuditHistory[dataOffset].timestamp,false,false,1))
+            
             ---set player name
-            playerName:SetText(GB_AuditHistory[dataOffset].name)
+            playerName:SetText(GB_GetNameNoRealm(GB_AuditHistory[dataOffset].name))
+            class = GB_AuditHistory[dataOffset].class
+		    color = RAID_CLASS_COLORS[class]
+            if color ~= nil then
+                playerName:SetTextColor(color.r, color.g, color.b)
+            end
             
             --set item money
             MoneyFrame_Update(moneyFrame, GB_AuditHistory[dataOffset].amount);             
@@ -163,15 +176,18 @@ function GB_AuditHistoryEntryOnClick(self)
         local r,g,b = GetItemQualityColor(quality)
         GB_AuditHistoryFrame_AddItemName_String:SetTextColor(r,g,b,1) 
     end
-    MoneyInputFrame_SetCopper(GB_AuditHistoryMoneyFrame, GB_AuditHistory[self.index].amount) 
-  
+    MoneyInputFrame_SetCopper(GB_AuditHistoryMoneyFrame, GB_AuditHistory[self.index].amount)   
 end
 
 function GB_AuditHistoryOnClick()
     --not sure what to with this yet
 end
 
-function GB_SortByAuditHistoryItem(a,b)
+function GB_ClearAuditHistory()
+    local dialog = StaticPopup_Show("WARNING_AUDIT_HIST_CLEAR") 
+end
+
+function GB_SortByAuditItem(a,b)
     local aname = GetItemInfo(a.item)
     local bname = GetItemInfo(b.item)
 	
@@ -182,7 +198,7 @@ function GB_SortByAuditHistoryItem(a,b)
     end
 end
 
-function GB_SortByAuditHistoryAmount(a,b)
+function GB_SortByAuditAmount(a,b)
     if GB_AUDIT_AMOUNT_SORT then
         return tonumber(a.amount) > tonumber(b.amount)
     else
@@ -190,7 +206,26 @@ function GB_SortByAuditHistoryAmount(a,b)
     end
 end
 
-function GB_ClearAuditHistory()
-    local dialog = StaticPopup_Show("WARNING_AUDIT_HIST_CLEAR") 
+function GB_SortByAuditTime(a,b)
+    if GB_AUDIT_TIME_SORT then
+        return a.timestamp > b.timestamp
+    else
+        return a.timestamp < b.timestamp
+    end
 end
 
+function GB_SortByAuditType(a,b)
+    if GB_AUDIT_TYPE_SORT then
+        return a.type > b.type
+    else
+        return a.type < b.type
+    end
+end
+ 
+function GB_SortByAuditName(a,b)
+    if GB_AUDIT_NAME_SORT then
+        return a.name > b.name
+    else
+        return a.name < b.name
+    end
+end    

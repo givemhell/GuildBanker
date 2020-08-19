@@ -57,7 +57,7 @@
         <Size x="32" y="32" />
         <Layers>
             <Layer level="OVERLAY">
-                <Texture name="$parentIcon" file="interface\icons\inv_misc_book_07" setAllPoint="true" />
+                <Texture name="$parentIcon" file="interface\icons\inv_misc_book_09" setAllPoint="true" />
             </Layer>
         </Layers>
         <Scripts>            
@@ -75,7 +75,7 @@
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="GB_ListFrame" >
                 <Offset>
-                    <AbsDimension x="240" y="-34" />
+                    <AbsDimension x="177" y="-34" />
                 </Offset>
             </Anchor>
         </Anchors>        

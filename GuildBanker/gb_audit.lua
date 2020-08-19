@@ -69,30 +69,32 @@ function GB_AuditInit()
     for i = 1,gnum do
         name = GB_GuildMates[i].name     
        GB_AuditData[name] = {}      
-       GB_AuditData[name].balance = 0         
+       GB_AuditData[name].balance = 0
+       GB_AuditData[name].class = GB_GuildMates[i].class
     end   
 end
 
 function GB_AuditBank()
-   if not CanEditGuildTabInfo(1) then
-      GB_Message("You do not have permission to audit the guild bank.")
-      return
-   end
+    if not CanEditGuildTabInfo(1) then
+       GB_Message("You do not have permission to audit the guild bank.")
+       return
+    end
    
-   local typ, name, amount, y, m, d, h
+    local typ, name, amount, y, m, d, h
 	local num = GetNumGuildBankMoneyTransactions()
 	local i,ts,allnew,lasttrans
-   local nonew = true
+    local nonew = true
    
-   --GB_LoadLastAudit()   
-   if GB_AuditData["last"].t0 == "" then      
-      -- if we don't have a last audit, they're all new
-      allnew = true
-   else
-      -- we've got audit data, let's use it
-      allnew = false
-   end   
-	for i = 1,num do    
+    --GB_LoadLastAudit()   
+    if GB_AuditData["last"].t0 == "" then      
+       -- if we don't have a last audit, they're all new
+       allnew = true
+    else
+       -- we've got audit data, let's use it
+       allnew = false
+    end   
+	
+    for i = 1,num do    
       lasttrans = GB_IsTransactionNew(i)
 		if allnew or lasttrans==true then		         
          typ, name, amount, y, m, d, h = GetGuildBankMoneyTransaction(i)           
@@ -114,7 +116,7 @@ function GB_AuditBank()
             GB_UpdateLastTransaction(i)  
              --Add an entry to Audit History
              local timestamp = GB_GetTransactionTimeStamp(y, m, d, h)
-            table.insert(GB_AuditHistory, {typ=typ, name=name, amount=amount, year=y, timestamp=timestamp, source=0})
+            table.insert(GB_AuditHistory, {typ=typ, name=name, class=GB_AuditData[name].class, amount=amount, year=y, timestamp=timestamp, source=0})
          end
 		else 
          if lasttrans == 2 then
