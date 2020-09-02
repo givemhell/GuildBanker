@@ -15,9 +15,9 @@ function GB_OnLoad(self)
     self:RegisterEvent("GUILDBANKBAGSLOTS_CHANGED");
     self:RegisterEvent("GUILDBANKFRAME_CLOSED");
     self:RegisterEvent("GUILDBANKFRAME_OPENED");
-    RegisterAddonMessagePrefix("GB_IL_SYNC_REQ")
-    RegisterAddonMessagePrefix("GB_IL_UPDATE")
-    RegisterAddonMessagePrefix("GB_FORCE")  
+    --RegisterAddonMessagePrefix("GB_IL_SYNC_REQ")
+    --RegisterAddonMessagePrefix("GB_IL_UPDATE")
+    --RegisterAddonMessagePrefix("GB_FORCE")  
    
 end
 

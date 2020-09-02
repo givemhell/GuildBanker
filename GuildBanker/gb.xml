@@ -84,7 +84,7 @@
             <Anchor point="TOPLEFT"/>
         </Anchors>
         <Layers>
-            <Layer level="BACKGROUND">
+            <Layer level="DIALOG">
                 <Texture name="MyMod_MinimapButton_Icon" file="Interface\Icons\ACHIEVEMENT_GUILDPERK_MOBILEBANKING">
                     <Size>
                         <AbsDimension x="21" y="21"/>

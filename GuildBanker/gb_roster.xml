@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">  
+  <Frame name="GuildMemberDetailFrame" hidden="true"></Frame>
+  <Frame name="GuildFrameColumnHeaderTemplate" hidden="true" virtual="true"></Frame>
   <Frame name="GB_RosterBalanceFrame" parent="GuildMemberDetailFrame" hidden="true">  
     <Size>
       <AbsDimension x="212" y="130" />
