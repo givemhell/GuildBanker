@@ -1,3 +1,62 @@
+function GB_AddItemToLargessList(item, value)
+    if GB_ItemLargess == nil then
+        GB_ItemLargess = {}
+    end 
+    
+    --prevent duplicate entries
+    local i, name1, name2, argflag    
+    
+    if item == nil then
+        --not using arguments
+        argflag = false
+        item = GB_CurrentItemLargessIconItem
+        name2 = GetItemInfo(GB_CurrentItemLargessIconItem)
+        value = TSMAPI:GetItemValue(GB_CurrentItemLargessIconItem, "DBRegionMarketAvg")         
+    else
+        --using arguments
+        argflag = true
+        name2 = GetItemInfo(item)
+        value = TSMAPI:GetItemValue(item, "DBRegionMarketAvg")         
+    end
+    
+    --search for item in list to avoid duplicate entries
+    for i = 1, #GB_ItemLargess do
+        name1 = GetItemInfo(GB_ItemLargess[i].item)
+        --name2 = GetItemInfo(GB_CurrentItemLargessIconItem)
+        --gb_debug(name1.." : "..name2)
+        if name1 == name2 then    
+            gb_debug(name1.." exists!")
+            
+            if argflag then 
+                return 
+            end
+			
+            --GB_ItemLargess[i].balance = MoneyInputFrame_GetCopper(GB_ItemLargessMoneyFrame)    
+            GB_ItemLargess[i].balance = value
+            GB_ItemLargess[i].timestamp = time()
+            ChatThrottleLib:SendAddonMessage("NORMAL","GB_IL_UPDATE", GB_ItemLargessToString(i),"GUILD")
+            return 
+        end
+    end
+        
+    table.insert(GB_ItemLargess, {timestamp=time(),item=item,balance=value}) 
+    ChatThrottleLib:SendAddonMessage("NORMAL","GB_IL_UPDATE", GB_ItemLargessToString(#GB_ItemLargess),"GUILD")
+end
+Please note that this is a simplified example and the actual implementation might need to handle edge cases and errors. For example, the TSM API might return nil if it doesn't have a price for an item, and your addon should be prepared to handle that.
+
+Also, please note that this change assumes that the TSM addon is installed and loaded before your addon. If that's not the case, you might need to add some code to check if the TSM API is available before calling it.
+
+
+
+
+
+User
+can you send me the whole code edited im stupid
+ChatGPT
+Sure, I understand. Here's the entire code with the changes made to the GB_AddItemToLargessList(item, value) function:
+
+lua
+Copy code
 function GB_EnterItemLargessIconButton()
     GameTooltip_SetDefaultAnchor(GameTooltip,UIParent)
     GameTooltip:ClearLines()
@@ -24,18 +83,17 @@ function GB_AddItemToLargessList(item, value)
         argflag = false
         item = GB_CurrentItemLargessIconItem
         name2 = GetItemInfo(GB_CurrentItemLargessIconItem)
-        value = MoneyInputFrame_GetCopper(GB_ItemLargessMoneyFrame)         
+        value = TSMAPI:GetItemValue(GB_CurrentItemLargessIconItem, "DBRegionMarketAvg")         
     else
         --using arguments
         argflag = true
-        name2 = GetItemInfo(item)         
+        name2 = GetItemInfo(item)
+        value = TSMAPI:GetItemValue(item, "DBRegionMarketAvg")         
     end
     
     --search for item in list to avoid duplicate entries
     for i = 1, #GB_ItemLargess do
         name1 = GetItemInfo(GB_ItemLargess[i].item)
-        --name2 = GetItemInfo(GB_CurrentItemLargessIconItem)
-        --gb_debug(name1.." : "..name2)
         if name1 == name2 then    
             gb_debug(name1.." exists!")
             
@@ -43,7 +101,6 @@ function GB_AddItemToLargessList(item, value)
                 return 
             end
 			
-            --GB_ItemLargess[i].balance = MoneyInputFrame_GetCopper(GB_ItemLargessMoneyFrame)    
             GB_ItemLargess[i].balance = value
             GB_ItemLargess[i].timestamp = time()
             ChatThrottleLib:SendAddonMessage("NORMAL","GB_IL_UPDATE", GB_ItemLargessToString(i),"GUILD")
