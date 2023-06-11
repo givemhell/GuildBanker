@@ -1,4 +1,4 @@
-## Interface: 70300
+## Interface: 100100
 ## Title: Guild Banker
 ## Version: 0.0.11
 ## Notes: A guild bank management system.
@@ -14,4 +14,20 @@ gb_largess_view.xml
 gb_largess_details.xml
 gb_item_largess.xml
 gb_audit_history.xml
-##ChatThrottleLib.lua
+ChatThrottleLib.lua
+gb.lua
+gb_actionqueue.lua
+gb_audit.lua
+gb_audit_history.lua
+gb_audit_tab.lua
+gb_commands.lua
+gb_dialogs.lua
+gb_gui.lua
+gb_help.lua
+gb_init.lua
+gb_item_largess_panel.xml
+gb_item_list.lua
+gb_largess.lua
+gb_message.lua
+gb_sort.lua
+gb_sync.lua
